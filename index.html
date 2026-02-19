@@ -99,7 +99,6 @@
       padding: 18px;
     }
 
-    /* Layout + systemlapp syns alltid */
     .layout{
       display:grid;
       grid-template-columns: minmax(0,1fr) minmax(340px, 390px);
@@ -247,8 +246,8 @@
       flex-shrink: 0;
     }
 
+    /* Systemets indikatorer (ska vara kvar, som gröna "X") */
     .pickline{ display:flex; gap:8px; align-items:center; }
-
     .pickbtn{
       width: 44px;
       height: 36px;
@@ -267,7 +266,6 @@
       border-color: rgba(34,197,94,.65);
       background: rgba(34,197,94,.16);
     }
-
     .pick{
       font-weight: 900;
       padding: 6px 10px;
@@ -282,7 +280,67 @@
     .matchbody{ padding: 14px 16px; }
     .matchbody p{ margin: 0; color: var(--text); }
 
-    /* ✅ Alternativ per match */
+    /* ✅ Ditt val (interaktivt) */
+    .yourow{
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(26,41,64,.9);
+      background: rgba(7,11,18,.28);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .yourow .label{
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .youline{
+      display:flex;
+      gap: 8px;
+      align-items:center;
+      flex-shrink: 0;
+    }
+    .ubtn{
+      width: 44px;
+      height: 36px;
+      border-radius: 12px;
+      border: 1px solid rgba(26,41,64,.95);
+      background: rgba(14,22,38,.92);
+      color: var(--text);
+      font-weight: 900;
+      letter-spacing: .4px;
+      cursor: pointer;
+      user-select:none;
+      display:grid;
+      place-items:center;
+      line-height:1;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      transition: transform .08s ease, border-color .15s ease, background .15s ease;
+    }
+    .ubtn:hover{ border-color: rgba(96,165,250,.75); }
+    .ubtn:active{ transform: translateY(1px); }
+    .ubtn.on{
+      border-color: rgba(96,165,250,.85);
+      background: rgba(96,165,250,.16);
+    }
+    .youpill{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(96,165,250,.65);
+      background: rgba(96,165,250,.12);
+      color: var(--text);
+      font-weight: 900;
+      font-size: 12px;
+      white-space: nowrap;
+      letter-spacing:.2px;
+    }
+
+    /* Alternativ per match */
     .legend{
       margin-top: 10px;
       padding: 10px 12px;
@@ -317,7 +375,7 @@
     .hl.kassa h4{ color: var(--accent); }
     .hl.warn h4{ color: var(--warn); }
 
-    /* Högerkolumn (sticky) */
+    /* Högerkolumn */
     .slipcol{ position: sticky; top: 86px; display:flex; flex-direction:column; gap: 14px; }
 
     .slipcard{
@@ -476,7 +534,7 @@
       .title{ font-size: 26px; }
       .meta{ gap: 8px 10px; }
 
-      .pickbtn{
+      .pickbtn,.ubtn{
         width: 48px;
         height: 40px;
         border-radius: 14px;
@@ -491,56 +549,6 @@
         font-size: 12px;
       }
       .sliprow{ padding: 10px 10px; }
-    }
-
-    /* ✅ Viktigt: Din lapp ska vara STATISK och få plats på 1 skärm (ingen intern scroll).
-       Vi krymper ENBART "Din lapp" på mobilen genom tätare layout + mindre text/knappar. */
-    @media (max-width: 520px){
-      .slipcard[aria-label="Din lapp"] .sliphead{
-        padding: 10px 10px 8px 10px;
-      }
-      .slipcard[aria-label="Din lapp"] .sliphead h3{
-        font-size: 13px;
-      }
-      /* dölj extra instruktionstexter för att spara höjd på screenshot */
-      .slipcard[aria-label="Din lapp"] .sliphead .small{
-        display: none;
-      }
-
-      .slipcard[aria-label="Din lapp"] .slipbody{
-        padding: 8px 8px 10px 8px;
-      }
-      .slipcard[aria-label="Din lapp"] .slipgrid{
-        gap: 6px;
-      }
-      .slipcard[aria-label="Din lapp"] .sliprow{
-        padding: 6px 8px;
-        border-radius: 12px;
-      }
-      .slipcard[aria-label="Din lapp"] .slipno{
-        width: 22px;
-        height: 22px;
-        border-radius: 8px;
-        font-size: 11px;
-      }
-      .slipcard[aria-label="Din lapp"] .slipteams{
-        font-size: 11px;
-        max-width: 155px; /* sparar bredd åt 1/X/2 */
-      }
-      .slipcard[aria-label="Din lapp"] .umark{
-        width: 28px;
-        height: 24px;
-        border-radius: 10px;
-        font-size: 11px;
-      }
-      .slipcard[aria-label="Din lapp"] .slipfooter{
-        margin-top: 8px;
-        font-size: 11px;
-      }
-      .slipcard[aria-label="Din lapp"] .slipfooter .countpill{
-        padding: 5px 8px;
-        font-size: 11px;
-      }
     }
 
     @media print{
@@ -576,7 +584,7 @@
 
             <div class="meta">
               <span class="pill"><b>Publicerad:</b> 2026-02-19 12:51</span>
-              <span class="pill"><b>Spelstopp:</b> 2026-02-23 18:59</span>
+              <span class="pill"><b>Spelstopp:</b> 2026-02-23 HH:MM</span>
               <span class="pill"><b>Kategori:</b> GFY Stryktips</span>
               <span class="pill"><b>Signatur:</b> Simon</span>
             </div>
@@ -781,12 +789,28 @@
     ]
   };
 
+  // ✅ Din lapp: exakt ETT val per match (sparas inte)
+  const userPick = Array.from({length: 13}, () => ""); // "", "1", "X" eller "2"
+
+  function setUserPick(i, p){
+    userPick[i] = p;
+    renderMatches();
+    renderUserSlip();
+    updateUserFooter();
+  }
+
+  function userSelectedCount(){
+    return userPick.reduce((acc, v) => acc + (v ? 1 : 0), 0);
+  }
+
   function renderMatches(){
     const wrap = document.getElementById("matches");
     wrap.innerHTML = "";
-    data.matches.forEach(m=>{
-      const set = pickToSet(m.pick);
-      const cls = classify(set);
+
+    data.matches.forEach((m, idx)=>{
+      const sysSet = pickToSet(m.pick);
+      const cls = classify(sysSet);
+      const you = userPick[idx];
 
       const el = document.createElement("article");
       el.className = "match";
@@ -796,26 +820,55 @@
             <h3>${m.no}. ${escapeHtml(m.teams)}</h3>
             <div class="tagrow">
               <span class="tag ${cls.key}">${cls.label}</span>
-              <span class="tag">Tecken: <b style="font-weight:900;color:var(--text)">${escapeHtml(setToPick(set))}</b></span>
+              <span class="tag">Tecken: <b style="font-weight:900;color:var(--text)">${escapeHtml(setToPick(sysSet))}</b></span>
             </div>
           </div>
 
+          <!-- Systemets "1 X 2" + gröna pick (ska vara kvar) -->
           <div class="mh-right">
-            <div class="pickline" aria-label="Tecken">
-              <div class="pickbtn ${set.has("1") ? "on":""}" aria-hidden="true">1</div>
-              <div class="pickbtn ${set.has("X") ? "on":""}" aria-hidden="true">X</div>
-              <div class="pickbtn ${set.has("2") ? "on":""}" aria-hidden="true">2</div>
+            <div class="pickline" aria-label="Systemtecken">
+              <div class="pickbtn ${sysSet.has("1") ? "on":""}" aria-hidden="true">1</div>
+              <div class="pickbtn ${sysSet.has("X") ? "on":""}" aria-hidden="true">X</div>
+              <div class="pickbtn ${sysSet.has("2") ? "on":""}" aria-hidden="true">2</div>
             </div>
-            <div class="pick">${escapeHtml(setToPick(set))}</div>
+            <div class="pick">${escapeHtml(setToPick(sysSet))}</div>
           </div>
         </div>
 
         <div class="matchbody">
           <p>${escapeHtml(m.body)}</p>
+
+          <!-- ✅ Ditt val (interaktivt) -->
+          <div class="yourow" aria-label="Ditt val">
+            <div class="label">Ditt val</div>
+            <div class="youline">
+              <div class="ubtn ${you==="1" ? "on":""}" data-i="${idx}" data-p="1" role="button" tabindex="0" aria-label="Välj 1">1</div>
+              <div class="ubtn ${you==="X" ? "on":""}" data-i="${idx}" data-p="X" role="button" tabindex="0" aria-label="Välj X">X</div>
+              <div class="ubtn ${you==="2" ? "on":""}" data-i="${idx}" data-p="2" role="button" tabindex="0" aria-label="Välj 2">2</div>
+              <div class="youpill">${escapeHtml(you || "—")}</div>
+            </div>
+          </div>
+
           <div class="legend"><b>Alternativ:</b> ${escapeHtml(m.legend || "1 / X / 2")}</div>
         </div>
       `;
       wrap.appendChild(el);
+    });
+
+    // events för analys-knapparna (Ditt val)
+    wrap.querySelectorAll(".ubtn").forEach(btn=>{
+      const toggle = ()=>{
+        const i = parseInt(btn.dataset.i, 10);
+        const p = btn.dataset.p;
+        setUserPick(i, p);
+      };
+      btn.addEventListener("click", toggle, { passive: true });
+      btn.addEventListener("keydown", (e)=>{
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          toggle();
+        }
+      });
     });
   }
 
@@ -852,13 +905,6 @@
     document.getElementById("systemTypeMini").textContent = label;
   }
 
-  // Din lapp: exakt ETT val per match (tom vid refresh, sparas inte)
-  const userPick = Array.from({length: 13}, () => "");
-
-  function userSelectedCount(){
-    return userPick.reduce((acc, v) => acc + (v ? 1 : 0), 0);
-  }
-
   function renderUserSlip(){
     const grid = document.getElementById("userGrid");
     grid.innerHTML = "";
@@ -884,9 +930,7 @@
     const toggle = (el)=>{
       const i = parseInt(el.dataset.i, 10);
       const p = el.dataset.p;
-      userPick[i] = p;
-      renderUserSlip();
-      updateUserFooter();
+      setUserPick(i, p); // ✅ speglar upp till analysen också
     };
 
     grid.querySelectorAll(".umark").forEach(el=>{
