@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GFY STRYKTIPS 2026</title>
+
+  <!--
+    Bild:
+    1) Spara den bifogade bilden som: hero.png
+    2) Lägg hero.png i samma mapp som denna HTML-fil
+  -->
+
+  <style>
+    :root{
+      --bg:#070b12;
+      --card:#0e1626;
+      --card2:#0b1220;
+      --text:#e7edf7;
+      --muted:#9aa6b2;
+      --line:#1a2940;
+      --accent:#22c55e;
+      --accent2:#60a5fa;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --shadow: 0 14px 40px rgba(0,0,0,.45);
+      --radius: 18px;
+      --max: 1140px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: var(--font);
+      background:
+        radial-gradient(1200px 700px at 12% -10%, rgba(34,197,94,.16), transparent 55%),
+        radial-gradient(1100px 700px at 112% 18%, rgba(96,165,250,.18), transparent 55%),
+        radial-gradient(900px 520px at 50% 120%, rgba(245,158,11,.10), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(12px);
+      background: rgba(7,11,18,.68);
+      border-bottom: 1px solid rgba(26,41,64,.9);
+    }
+    .topbar{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 18px;
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      justify-content: space-between;
+    }
+    .brand{
+      display:flex; gap:12px; align-items:center;
+      min-width: 220px;
+    }
+    .logo{
+      width: 38px; height: 38px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(96,165,250,.95));
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow:hidden;
+      flex-shrink:0;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:-20px;
+      background:
+        radial-gradient(220px 140px at 30% 30%, rgba(255,255,255,.35), transparent 55%),
+        radial-gradient(160px 120px at 70% 70%, rgba(255,255,255,.18), transparent 60%);
+      transform: rotate(18deg);
+      opacity:.55;
+    }
+    .brand h1{
+      font-size: 14px;
+      margin: 0;
+      letter-spacing: .45px;
+      color: var(--text);
+    }
+    .brand span{
+      display:block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    /* Layout + systemlapp syns alltid */
+    .layout{
+      display:grid;
+      grid-template-columns: minmax(0,1fr) minmax(340px, 390px);
+      gap: 16px;
+      align-items:start;
+    }
+    @media (max-width: 1180px){
+      .layout{ grid-template-columns: 1fr; }
+      .slipcol{ position: static !important; }
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      background: rgba(14,22,38,.78);
+      border: 1px solid rgba(26,41,64,.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .card .pad{ padding: 16px; }
+    .title{
+      font-size: 30px;
+      margin: 0 0 8px 0;
+      letter-spacing: .2px;
+    }
+    .meta{
+      display:flex; flex-wrap:wrap; gap: 10px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(26,41,64,.95);
+      background: rgba(11,18,32,.7);
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .pill b{ color: var(--text); font-weight: 800; }
+
+    .heroimg{
+      min-height: 240px;
+      background-image:
+        linear-gradient(180deg, rgba(7,11,18,.12), rgba(7,11,18,.70)),
+        url("hero.png");
+      background-size: cover;
+      background-position: center;
+      border-bottom: 1px solid rgba(26,41,64,.9);
+      position: relative;
+    }
+    .heroimg:before{
+      content:"";
+      position:absolute;
+      inset: 0;
+      background:
+        radial-gradient(260px 260px at 20% 20%, rgba(255,255,255,.10), transparent 62%),
+        radial-gradient(300px 300px at 78% 40%, rgba(255,255,255,.06), transparent 65%);
+      opacity:.85;
+      pointer-events:none;
+    }
+
+    .lead{
+      color: var(--text);
+      font-size: 15px;
+    }
+    .muted{ color: var(--muted); }
+
+    /* ✅ NY: tydlig slogan */
+    .slogan{
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(34,197,94,.55);
+      background: rgba(34,197,94,.10);
+      font-weight: 900;
+      letter-spacing: .25px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,.25);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .match{
+      background: rgba(14,22,38,.78);
+      border: 1px solid rgba(26,41,64,.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .matchhead{
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(26,41,64,.9);
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      justify-content: space-between;
+      background: rgba(11,18,32,.62);
+    }
+    .mh-left{
+      display:flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+    .matchhead h3{
+      margin:0;
+      font-size: 16px;
+      line-height: 1.25;
+      letter-spacing: .15px;
+      word-break: break-word;
+    }
+
+    .tagrow{ display:flex; gap:8px; flex-wrap:wrap; }
+    .tag{
+      display:inline-flex; align-items:center; gap:6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid rgba(26,41,64,.95);
+      background: rgba(7,11,18,.45);
+      color: var(--muted);
+    }
+    .tag.spik{ border-color: rgba(34,197,94,.6); background: rgba(34,197,94,.12); color: var(--text); }
+    .tag.halv{ border-color: rgba(245,158,11,.6); background: rgba(245,158,11,.10); color: var(--text); }
+    .tag.hel{  border-color: rgba(96,165,250,.65); background: rgba(96,165,250,.12); color: var(--text); }
+
+    .mh-right{
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items:flex-end;
+      flex-shrink: 0;
+    }
+
+    .pickline{
+      display:flex; gap:8px; align-items:center;
+    }
+
+    .pickbtn{
+      width: 44px;
+      height: 36px;
+      border-radius: 12px;
+      border: 1px solid rgba(26,41,64,.95);
+      background: rgba(14,22,38,.92);
+      color: var(--text);
+      font-weight: 900;
+      letter-spacing: .4px;
+      user-select:none;
+      display: grid;
+      place-items: center;
+      line-height: 1;
+    }
+    .pickbtn.on{
+      border-color: rgba(34,197,94,.65);
+      background: rgba(34,197,94,.16);
+    }
+
+    .pick{
+      font-weight: 900;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(34,197,94,.55);
+      background: rgba(34,197,94,.12);
+      white-space: nowrap;
+      font-size: 13px;
+      letter-spacing:.2px;
+    }
+
+    .matchbody{ padding: 14px 16px; }
+    .matchbody p{ margin: 0; color: var(--text); }
+
+    .small{ font-size: 12px; color: var(--muted); }
+
+    .highlights{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (max-width: 900px){
+      .highlights{ grid-template-columns: 1fr; }
+    }
+    .hl{
+      border-radius: var(--radius);
+      border: 1px solid rgba(26,41,64,.9);
+      background: rgba(14,22,38,.78);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+    .hl h4{ margin:0 0 6px 0; font-size: 15px; }
+    .hl.kassa h4{ color: var(--accent); }
+    .hl.warn h4{ color: var(--warn); }
+
+    /* Högerkolumn (sticky) */
+    .slipcol{ position: sticky; top: 86px; display:flex; flex-direction:column; gap: 14px; }
+
+    .slipcard{
+      border-radius: var(--radius);
+      border: 1px solid rgba(26,41,64,.9);
+      background:
+        radial-gradient(420px 240px at 30% 0%, rgba(96,165,250,.14), transparent 60%),
+        radial-gradient(420px 240px at 90% 20%, rgba(34,197,94,.10), transparent 60%),
+        rgba(14,22,38,.78);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .sliphead{
+      padding: 14px 14px 12px 14px;
+      border-bottom: 1px solid rgba(26,41,64,.9);
+      background: rgba(11,18,32,.62);
+    }
+    .sliphead h3{
+      margin:0;
+      font-size: 14px;
+      letter-spacing:.35px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .sliphead .mini{
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 800;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(26,41,64,.95);
+      background: rgba(7,11,18,.45);
+      white-space: nowrap;
+    }
+    .slipbody{ padding: 12px 12px 14px 12px; }
+    .slipgrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .sliprow{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(26,41,64,.85);
+      background: rgba(7,11,18,.28);
+      overflow: hidden;
+    }
+    .sliprow .left{
+      display:flex; gap:10px; align-items:center;
+      min-width:0;
+      flex: 1 1 auto;
+    }
+    .slipno{
+      width: 26px;
+      height: 26px;
+      border-radius: 10px;
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(26,41,64,.95);
+      background: rgba(11,18,32,.75);
+      color: var(--text);
+      font-weight: 900;
+      font-size: 12px;
+      flex-shrink:0;
+    }
+    .slipteams{
+      font-size: 12px;
+      color: var(--muted);
+      min-width: 0;
+      flex: 1 1 auto;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: none;
+    }
+    .slipmarks{
+      display:flex; gap:6px; align-items:center;
+      flex: 0 0 auto;
+      flex-shrink:0;
+    }
+    .mark{
+      width: 30px; height: 26px;
+      border-radius: 11px;
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(26,41,64,.95);
+      background: rgba(14,22,38,.70);
+      color: rgba(231,237,247,.55);
+      font-weight: 900;
+      font-size: 12px;
+    }
+    .mark.on{
+      border-color: rgba(34,197,94,.65);
+      background: rgba(34,197,94,.16);
+      color: var(--text);
+    }
+
+    /* Din lapp (klickbar, ENDAST ett val per match) */
+    .umark{
+      width: 30px; height: 26px;
+      border-radius: 11px;
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(26,41,64,.95);
+      background: rgba(14,22,38,.70);
+      color: rgba(231,237,247,.72);
+      font-weight: 900;
+      font-size: 12px;
+      cursor: pointer;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      transition: transform .08s ease, border-color .15s ease, background .15s ease;
+    }
+    .umark:hover{ border-color: rgba(96,165,250,.75); }
+    .umark:active{ transform: translateY(1px); }
+    .umark.on{
+      border-color: rgba(34,197,94,.65);
+      background: rgba(34,197,94,.16);
+      color: var(--text);
+    }
+
+    .slipfooter{
+      margin-top: 12px;
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items:center;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .slipfooter .countpill{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(26,41,64,.95);
+      background: rgba(7,11,18,.28);
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    footer{
+      margin: 18px 0 44px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align:center;
+    }
+
+    /* MOBIL */
+    @media (max-width: 520px){
+      .container{ padding: 12px; }
+      .topbar{ padding: 12px 12px; }
+      .title{ font-size: 26px; }
+      .meta{ gap: 8px 10px; }
+
+      .pickbtn{
+        width: 48px;
+        height: 40px;
+        border-radius: 14px;
+        font-size: 14px;
+      }
+      .heroimg{ min-height: 200px; }
+
+      .mark, .umark{
+        width: 32px;
+        height: 28px;
+        border-radius: 12px;
+        font-size: 12px;
+      }
+      .sliprow{ padding: 10px 10px; }
+    }
+
+    @media print{
+      header, .slipcol{ display:none !important; }
+      body{ background:#fff; color:#000; }
+      .card,.match,.hl{ box-shadow:none; border-color:#ddd; background:#fff; }
+      .pill,.tag{ border-color:#ddd; background:#fff; color:#000; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <h1>GFY STRYKTIPS 2026</h1>
+        <span class="muted">Publicerad 2026-02-19</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="layout">
+    <div id="pageRoot">
+      <section class="hero">
+        <article class="card">
+          <div class="heroimg" aria-hidden="true"></div>
+          <div class="pad">
+            <h2 class="title">GFY STRYKTIPS 2026</h2>
+
+            <div class="meta">
+              <span class="pill"><b>Publicerad:</b> 2026-02-19 12:51</span>
+              <span class="pill"><b>Spelstopp:</b> 2026-02-23 HH:MM</span>
+              <span class="pill"><b>Kategori:</b> GFY Stryktips</span>
+              <span class="pill"><b>Signatur:</b> Simon</span>
+            </div>
+
+            <div class="lead">
+              Årets GFY tips!<br>
+              Medlemmen med flest rätt belönas med Ibbes öl och den stora äran att under hela 2027 få påminna övriga om hur usla de är.
+            </div>
+
+            <!-- ✅ Slogan tydligt -->
+            <div class="slogan">GFY - För evigt bäst i stan!</div>
+          </div>
+        </article>
+
+        <aside class="card">
+          <div class="pad">
+            <h3 style="margin:0 0 10px 0;">Snabböversikt</h3>
+            <p class="muted" style="margin:0 0 10px 0;">
+              <strong>System:</strong> 1 rad (rak) – vi går på magkänsla och derbylogik.<br>
+              <strong>Spikar:</strong> #1 (2) och #9 (1).<br>
+              <strong>Halv/skräll:</strong> #11 känns vidöppen i snacket men jag landar i X.<br>
+              <strong>Tanke:</strong> Flera “X”-matcher → lågrisk på dramat, hög risk på hat-kvoten.
+            </p>
+            <div class="pill" style="margin-top:6px;"><b>Notis:</b> Spela ansvarsfullt.</div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="grid" id="matches"></section>
+
+      <section class="highlights">
+        <div class="hl kassa">
+          <h4>Kupongens kassaskåp!</h4>
+          <div>Här kan vi inte ha något annat än att VS inte vinner en enda fight.</div>
+        </div>
+        <div class="hl warn">
+          <h4>Varningens finger!</h4>
+          <div>
+            I årets omgång finns som bekant Fridhs säsongskort som öppnar upp helt för en skräll – vågar någon sig på 2:an?<br>
+            Bultras vara eller inte vara är också en match som verkligen är helt öppen! Kräver tanke och kanske en gnutta tur?
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div>GFY STRYKTIPS 2026</div>
+      </footer>
+    </div>
+
+    <!-- Högerkolumn -->
+    <aside class="slipcol" aria-label="Systemkolumn">
+      <!-- Systemlapp (dina förval) -->
+      <section class="slipcard" aria-label="Systemlapp">
+        <div class="sliphead">
+          <h3>
+            Systemlapp (1–13)
+            <span class="mini" id="systemTypeMini">—</span>
+          </h3>
+          <div class="small" style="margin-top:6px;">Sammanställning av val.</div>
+        </div>
+        <div class="slipbody">
+          <div class="slipgrid" id="slipGrid"></div>
+          <div class="slipfooter">
+            <span class="countpill" id="rowsCount">Rader: —</span>
+            <span class="muted" id="mixHint">Spik / Halv / Hel</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Din lapp (tom vid refresh, sparas inte) -->
+      <section class="slipcard" aria-label="Din lapp">
+        <div class="sliphead">
+          <h3>
+            Din lapp (tom vid refresh)
+            <span class="mini" id="userStatusMini">0/13</span>
+          </h3>
+
+          <!-- ✅ Ny tydlig instruktion -->
+          <div class="small" style="margin-top:6px; color: var(--text); font-weight: 800;">
+            Ta en screenshot och skicka i GFY chatten
+          </div>
+
+          <div class="small" style="margin-top:6px;">Klicka 1/X/2 per match. Sparas inte.</div>
+        </div>
+        <div class="slipbody">
+          <div class="slipgrid" id="userGrid"></div>
+          <div class="slipfooter">
+            <span class="countpill" id="userRowsCount">Rader: —</span>
+            <span class="muted" id="userHint">Fyll i alla matcher</span>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </div>
+</main>
+
+<script>
+(function(){
+  function pickToSet(p){
+    const s = new Set();
+    if(!p) return s;
+    const up = String(p).toUpperCase().replace(/\s+/g,"");
+    if(up.includes("1")) s.add("1");
+    if(up.includes("X")) s.add("X");
+    if(up.includes("2")) s.add("2");
+    return s;
+  }
+  function setToPick(set){
+    let out = "";
+    if(set.has("1")) out += "1";
+    if(set.has("X")) out += "X";
+    if(set.has("2")) out += "2";
+    return out || "—";
+  }
+  function classify(set){
+    const n = set.size;
+    if(n === 1) return { key:"spik", label:"Spik" };
+    if(n === 2) return { key:"halv", label:"Halv" };
+    if(n === 3) return { key:"hel",  label:"Hel" };
+    return { key:"", label:"Ovalt" };
+  }
+  function rowsCountFromMatches(matches){
+    let rows = 1;
+    for(const m of matches){
+      const n = Math.max(1, pickToSet(m.pick).size);
+      rows *= n;
+      if(rows > 999999) return ">999999";
+    }
+    return String(rows);
+  }
+  function systemMix(matches){
+    let spik=0, halv=0, hel=0, ov=0;
+    for(const m of matches){
+      const c = classify(pickToSet(m.pick)).key;
+      if(c==="spik") spik++;
+      else if(c==="halv") halv++;
+      else if(c==="hel") hel++;
+      else ov++;
+    }
+    return { spik, halv, hel, ov };
+  }
+  function escapeHtml(str){
+    return String(str)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  const data = {
+    matches: [
+      { no: 1,  teams: "Derbyt borta", pick: "2", body: "Svinen med värvningar från världens alla hörn tar emot det långsiktiga och tråkiga, Långejanne på bänken har fått en hel försäsong och gör sitt första derby. Här har BoIS inga problem. Spik 2:a." },
+      { no: 2,  teams: "Derbyt hemma", pick: "X", body: "Med senaste derbyförlusten färskt i minnet för svinen och \"bragden på Landskrona IP\" 2025 kommer HeIF försvara med 11 man. Det, kombinerat med Streete som inte ens kan göra mål om hans liv hänger på det: 0–0. Alltså X." },
+      { no: 3,  teams: "Fridh – totala matcher", pick: "X", body: "Helt öppen! Historiken säger under 5,5 men med ett säsongskort i potten lever denna helt. Hade man kunnat helgradera skulle detta vara matchen att göra det på. Jag kör på X." },
+      { no: 4,  teams: "Hur många GFY Oddevold borta", pick: "X", body: "Lördag, vår i luften och behagligt avstånd. Här ska GFY givetvis vara 100%-iga. Därför blir det bortfall på 50%. Alltså X." },
+      { no: 5,  teams: "Asterhed får sparken", pick: "2", body: "Vem ska sparka honom? Vi står utan sportchef. 2." },
+      { no: 6,  teams: "Mölder får sparken", pick: "X", body: "Här är det mycket mer öppet. Smålänningarna har redan börjat gnissla tänder över rödskäggets defensiva och direkt tråkiga fotboll. Kombinationen av hård press att återgå till fotbollens finrum och ett urstarkt Superettan 2026 gör att Mölder får sparken – dock först efter sommaruppehållet. X." },
+      { no: 7,  teams: "BoIS placering i cupen", pick: "2", body: "Ingenting att hämta här. Slutar sist. 2:a." },
+      { no: 8,  teams: "BoIS placering vid sommaruppehållet", pick: "X", body: "BoIS placerar sig på den övre halvan för att sedan som vanligt falla som BB på hösten. Inför sommaruppehållet ligger BoIS dock 4–6, alltså X." },
+      { no: 9,  teams: "Vinner VS en fight", pick: "1", body: "Lappens mest solklara spik. Det gör de inte. 1." },
+      { no: 10, teams: "Bortamatch med högst GFY-närvaro (ej derby)", pick: "1", body: "Denna kommer vara uppe för diskussion. Är Koffe med om han står på fel läktare? Jag säger ja – och därför Öster borta. 1:a." },
+      { no: 11, teams: "Byter Bultras namn 2026", pick: "X", body: "Skribenten har försökt luska. Senaste budet är \"det är redan bestämt att Bultras byter namn\" – dock flaggar källan för att de kan köra no-name som räknas som att gruppen upplöses. Vidöppen match, men Bulten sitter på för hög häst för att släppa Bultras-namnet. De byter inte namn under säsongen. X." },
+      { no: 12, teams: "Avbrott i hemmaderbyt", pick: "X", body: "Kortsida mot kortsida och kombinationen av världens tråkigaste 0–0-match begränsar avbrotten. Dock bekräftat att det kommer finnas singel bakom västra. Det blir 2 avbrott. X." },
+      { no: 13, teams: "BoIS slutplacering 2026", pick: "2", body: "Kan inte se att vi kan utmana alls i årets upplaga av Superettan. BoIS slutar på nedre halvan. 2:a." }
+    ]
+  };
+
+  function renderMatches(){
+    const wrap = document.getElementById("matches");
+    wrap.innerHTML = "";
+    data.matches.forEach(m=>{
+      const set = pickToSet(m.pick);
+      const cls = classify(set);
+
+      const el = document.createElement("article");
+      el.className = "match";
+      el.innerHTML = `
+        <div class="matchhead">
+          <div class="mh-left">
+            <h3>${m.no}. ${escapeHtml(m.teams)}</h3>
+            <div class="tagrow">
+              <span class="tag ${cls.key}">${cls.label}</span>
+              <span class="tag">Tecken: <b style="font-weight:900;color:var(--text)">${escapeHtml(setToPick(set))}</b></span>
+            </div>
+          </div>
+
+          <div class="mh-right">
+            <div class="pickline" aria-label="Tecken">
+              <div class="pickbtn ${set.has("1") ? "on":""}" aria-hidden="true">1</div>
+              <div class="pickbtn ${set.has("X") ? "on":""}" aria-hidden="true">X</div>
+              <div class="pickbtn ${set.has("2") ? "on":""}" aria-hidden="true">2</div>
+            </div>
+            <div class="pick">${escapeHtml(setToPick(set))}</div>
+          </div>
+        </div>
+
+        <div class="matchbody">
+          <p>${escapeHtml(m.body)}</p>
+        </div>
+      `;
+      wrap.appendChild(el);
+    });
+  }
+
+  function renderSlip(){
+    const grid = document.getElementById("slipGrid");
+    grid.innerHTML = "";
+
+    data.matches.forEach(m=>{
+      const set = pickToSet(m.pick);
+      const row = document.createElement("div");
+      row.className = "sliprow";
+      row.innerHTML = `
+        <div class="left">
+          <div class="slipno">${m.no}</div>
+          <div class="slipteams" title="${escapeHtml(m.teams)}">${escapeHtml(m.teams)}</div>
+        </div>
+        <div class="slipmarks" aria-label="Valda tecken">
+          <div class="mark ${set.has("1") ? "on":""}">1</div>
+          <div class="mark ${set.has("X") ? "on":""}">X</div>
+          <div class="mark ${set.has("2") ? "on":""}">2</div>
+        </div>
+      `;
+      grid.appendChild(row);
+    });
+
+    const mix = systemMix(data.matches);
+    document.getElementById("rowsCount").textContent = `Rader: ${rowsCountFromMatches(data.matches)}`;
+    document.getElementById("mixHint").textContent = `Spik ${mix.spik} • Halv ${mix.halv} • Hel ${mix.hel}`;
+
+    let label = "Mix";
+    if(mix.hel === 0 && mix.halv === 0) label = "Rak (13 spikar)";
+    else if(mix.hel === 0 && mix.halv > 0) label = "Halvgard. system";
+    else if(mix.hel > 0) label = "Helgard. med i system";
+    document.getElementById("systemTypeMini").textContent = label;
+  }
+
+  // ✅ Din lapp: exakt ETT val per match (tom vid refresh, sparas inte)
+  const userPick = Array.from({length: 13}, () => ""); // "", "1", "X" eller "2"
+
+  function userSelectedCount(){
+    return userPick.reduce((acc, v) => acc + (v ? 1 : 0), 0);
+  }
+
+  function renderUserSlip(){
+    const grid = document.getElementById("userGrid");
+    grid.innerHTML = "";
+
+    data.matches.forEach((m, idx)=>{
+      const v = userPick[idx];
+      const row = document.createElement("div");
+      row.className = "sliprow";
+      row.innerHTML = `
+        <div class="left">
+          <div class="slipno">${m.no}</div>
+          <div class="slipteams" title="${escapeHtml(m.teams)}">${escapeHtml(m.teams)}</div>
+        </div>
+        <div class="slipmarks" aria-label="Välj tecken">
+          <div class="umark ${v==="1" ? "on":""}" data-i="${idx}" data-p="1" role="button" tabindex="0" aria-label="Välj 1">1</div>
+          <div class="umark ${v==="X" ? "on":""}" data-i="${idx}" data-p="X" role="button" tabindex="0" aria-label="Välj X">X</div>
+          <div class="umark ${v==="2" ? "on":""}" data-i="${idx}" data-p="2" role="button" tabindex="0" aria-label="Välj 2">2</div>
+        </div>
+      `;
+      grid.appendChild(row);
+    });
+
+    const toggle = (el)=>{
+      const i = parseInt(el.dataset.i, 10);
+      const p = el.dataset.p;
+      // välj alltid senaste - avmarkera tidigare automatiskt
+      userPick[i] = p;
+      renderUserSlip();
+      updateUserFooter();
+    };
+
+    grid.querySelectorAll(".umark").forEach(el=>{
+      el.addEventListener("click", ()=>toggle(el), { passive: true });
+      el.addEventListener("keydown", (e)=>{
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          toggle(el);
+        }
+      });
+    });
+  }
+
+  function updateUserFooter(){
+    const done = userSelectedCount();
+    document.getElementById("userStatusMini").textContent = `${done}/13`;
+
+    const allDone = (done === 13);
+    document.getElementById("userRowsCount").textContent = `Rader: ${allDone ? "1" : "—"}`;
+
+    const hint = document.getElementById("userHint");
+    hint.textContent = allDone ? "Klar! Ta en screenshot och skicka." : "Fyll i alla matcher";
+  }
+
+  renderMatches();
+  renderSlip();
+  renderUserSlip();
+  updateUserFooter();
+})();
+</script>
+</body>
+</html>
