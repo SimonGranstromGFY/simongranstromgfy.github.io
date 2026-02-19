@@ -502,12 +502,19 @@
       .sliprow{ padding: 10px 10px; }
     }
 
-    /* ✅ Mobil: gör "Din lapp" kortare (~10%) och låt innehållet scrolla */
+    /* ✅ Mobil: gör "Din lapp" kortare (~10%) och gör listan scrollbar (så 1–13 syns) */
     @media (max-width: 520px){
       .slipcard[aria-label="Din lapp"]{
         max-height: 68vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .slipcard[aria-label="Din lapp"] .sliphead{
+        flex: 0 0 auto;
       }
       .slipcard[aria-label="Din lapp"] .slipbody{
+        flex: 1 1 auto;
+        min-height: 0;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
       }
@@ -823,7 +830,7 @@
   }
 
   // Din lapp: exakt ETT val per match (tom vid refresh, sparas inte)
-  const userPick = Array.from({length: 13}, () => ""); // "", "1", "X" eller "2"
+  const userPick = Array.from({length: 13}, () => "");
 
   function userSelectedCount(){
     return userPick.reduce((acc, v) => acc + (v ? 1 : 0), 0);
@@ -854,7 +861,7 @@
     const toggle = (el)=>{
       const i = parseInt(el.dataset.i, 10);
       const p = el.dataset.p;
-      userPick[i] = p; // välj alltid senaste
+      userPick[i] = p;
       renderUserSlip();
       updateUserFooter();
     };
