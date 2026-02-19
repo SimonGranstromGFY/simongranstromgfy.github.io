@@ -173,13 +173,9 @@
       pointer-events:none;
     }
 
-    .lead{
-      color: var(--text);
-      font-size: 15px;
-    }
+    .lead{ color: var(--text); font-size: 15px; }
     .muted{ color: var(--muted); }
 
-    /* ✅ Slogan */
     .slogan{
       margin-top: 12px;
       padding: 10px 12px;
@@ -251,9 +247,7 @@
       flex-shrink: 0;
     }
 
-    .pickline{
-      display:flex; gap:8px; align-items:center;
-    }
+    .pickline{ display:flex; gap:8px; align-items:center; }
 
     .pickbtn{
       width: 44px;
@@ -288,9 +282,7 @@
     .matchbody{ padding: 14px 16px; }
     .matchbody p{ margin: 0; color: var(--text); }
 
-    .small{ font-size: 12px; color: var(--muted); }
-
-    /* ✅ Legend för 1/X/2 */
+    /* ✅ Alternativ-ruta per match */
     .legend{
       margin-top: 10px;
       padding: 10px 12px;
@@ -302,6 +294,8 @@
       line-height: 1.45;
     }
     .legend b{ color: var(--text); }
+
+    .small{ font-size: 12px; color: var(--muted); }
 
     .highlights{
       display:grid;
@@ -361,11 +355,8 @@
       white-space: nowrap;
     }
     .slipbody{ padding: 12px 12px 14px 12px; }
-    .slipgrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
-    }
+    .slipgrid{ display:grid; grid-template-columns: 1fr; gap: 8px; }
+
     .sliprow{
       display:flex;
       align-items:center;
@@ -478,7 +469,7 @@
       text-align:center;
     }
 
-    /* MOBIL (generellt) */
+    /* MOBIL */
     @media (max-width: 520px){
       .container{ padding: 12px; }
       .topbar{ padding: 12px 12px; }
@@ -502,27 +493,19 @@
       .sliprow{ padding: 10px 10px; }
     }
 
-    /* ✅ Mobil: gör "Din lapp" kortare (~10%) och gör listan scrollbar (så 1–13 syns) */
+    /* ✅ Utzoomad känsla på mobil: krymp hela sidan till 95% */
     @media (max-width: 520px){
-      .slipcard[aria-label="Din lapp"]{
-        max-height: 68vh;
-        display: flex;
-        flex-direction: column;
-      }
-      .slipcard[aria-label="Din lapp"] .sliphead{
-        flex: 0 0 auto;
-      }
-      .slipcard[aria-label="Din lapp"] .slipbody{
-        flex: 1 1 auto;
-        min-height: 0;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
+      html{ zoom: 0.95; } /* funkar i många mobilläsare */
+      body{
+        transform: scale(0.95);         /* fallback */
+        transform-origin: top center;
+        width: 105.3%;                 /* kompenserar lite för transform så det inte känns "smalt" */
       }
     }
 
     @media print{
       header, .slipcol{ display:none !important; }
-      body{ background:#fff; color:#000; }
+      body{ background:#fff; color:#000; transform:none !important; width:auto !important; }
       .card,.match,.hl{ box-shadow:none; border-color:#ddd; background:#fff; }
       .pill,.tag{ border-color:#ddd; background:#fff; color:#000; }
     }
@@ -604,7 +587,7 @@
 
     <!-- Högerkolumn -->
     <aside class="slipcol" aria-label="Systemkolumn">
-      <!-- Systemlapp (dina förval) -->
+      <!-- Systemlapp -->
       <section class="slipcard" aria-label="Systemlapp">
         <div class="sliphead">
           <h3>
@@ -830,7 +813,7 @@
   }
 
   // Din lapp: exakt ETT val per match (tom vid refresh, sparas inte)
-  const userPick = Array.from({length: 13}, () => "");
+  const userPick = Array.from({length: 13}, () => ""); // "", "1", "X" eller "2"
 
   function userSelectedCount(){
     return userPick.reduce((acc, v) => acc + (v ? 1 : 0), 0);
@@ -861,7 +844,7 @@
     const toggle = (el)=>{
       const i = parseInt(el.dataset.i, 10);
       const p = el.dataset.p;
-      userPick[i] = p;
+      userPick[i] = p;          // välj alltid senaste
       renderUserSlip();
       updateUserFooter();
     };
