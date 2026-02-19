@@ -489,6 +489,34 @@
       .sliprow{ padding: 10px 10px; }
     }
 
+    /* ✅ EXTRA MOBIL-KOMPAKT: gör slipkort (framförallt "Din lapp") lite mindre */
+    @media (max-width: 520px){
+      .sliphead{ padding: 10px 10px 8px 10px; }
+      .slipbody{ padding: 10px 10px 12px 10px; }
+
+      .sliprow{ padding: 8px 8px; border-radius: 12px; gap: 8px; }
+
+      .slipno{
+        width: 24px;
+        height: 24px;
+        border-radius: 9px;
+        font-size: 11px;
+      }
+
+      .slipteams{ font-size: 11px; }
+
+      .slipmarks{ gap: 4px; }
+
+      .umark, .mark{
+        width: 30px;
+        height: 26px;
+        border-radius: 11px;
+        font-size: 12px;
+      }
+
+      .slipfooter{ margin-top: 10px; gap: 6px; }
+    }
+
     @media print{
       header, .slipcol{ display:none !important; }
       body{ background:#fff; color:#000; }
@@ -532,7 +560,6 @@
               Medlemmen med flest rätt belönas med Ibbes öl och den stora äran att under hela 2027 få påminna övriga om hur usla de är.
             </div>
 
-            <!-- ✅ Slogan tydligt -->
             <div class="slogan">GFY - För evigt bäst i stan!</div>
           </div>
         </article>
@@ -572,9 +599,7 @@
       </footer>
     </div>
 
-    <!-- Högerkolumn -->
     <aside class="slipcol" aria-label="Systemkolumn">
-      <!-- Systemlapp (dina förval) -->
       <section class="slipcard" aria-label="Systemlapp">
         <div class="sliphead">
           <h3>
@@ -592,7 +617,6 @@
         </div>
       </section>
 
-      <!-- Din lapp (tom vid refresh, sparas inte) -->
       <section class="slipcard" aria-label="Din lapp">
         <div class="sliphead">
           <h3>
@@ -600,7 +624,6 @@
             <span class="mini" id="userStatusMini">0/13</span>
           </h3>
 
-          <!-- ✅ Ny tydlig instruktion -->
           <div class="small" style="margin-top:6px; color: var(--text); font-weight: 800;">
             Ta en screenshot och skicka i GFY chatten
           </div>
@@ -793,7 +816,6 @@
     const toggle = (el)=>{
       const i = parseInt(el.dataset.i, 10);
       const p = el.dataset.p;
-      // välj alltid senaste - avmarkera tidigare automatiskt
       userPick[i] = p;
       renderUserSlip();
       updateUserFooter();
