@@ -282,7 +282,7 @@
     .matchbody{ padding: 14px 16px; }
     .matchbody p{ margin: 0; color: var(--text); }
 
-    /* ✅ Alternativ-ruta per match */
+    /* ✅ Alternativ per match */
     .legend{
       margin-top: 10px;
       padding: 10px 12px;
@@ -493,19 +493,59 @@
       .sliprow{ padding: 10px 10px; }
     }
 
-    /* ✅ Utzoomad känsla på mobil: krymp hela sidan till 95% */
+    /* ✅ Viktigt: Din lapp ska vara STATISK och få plats på 1 skärm (ingen intern scroll).
+       Vi krymper ENBART "Din lapp" på mobilen genom tätare layout + mindre text/knappar. */
     @media (max-width: 520px){
-      html{ zoom: 0.95; } /* funkar i många mobilläsare */
-      body{
-        transform: scale(0.95);         /* fallback */
-        transform-origin: top center;
-        width: 105.3%;                 /* kompenserar lite för transform så det inte känns "smalt" */
+      .slipcard[aria-label="Din lapp"] .sliphead{
+        padding: 10px 10px 8px 10px;
+      }
+      .slipcard[aria-label="Din lapp"] .sliphead h3{
+        font-size: 13px;
+      }
+      /* dölj extra instruktionstexter för att spara höjd på screenshot */
+      .slipcard[aria-label="Din lapp"] .sliphead .small{
+        display: none;
+      }
+
+      .slipcard[aria-label="Din lapp"] .slipbody{
+        padding: 8px 8px 10px 8px;
+      }
+      .slipcard[aria-label="Din lapp"] .slipgrid{
+        gap: 6px;
+      }
+      .slipcard[aria-label="Din lapp"] .sliprow{
+        padding: 6px 8px;
+        border-radius: 12px;
+      }
+      .slipcard[aria-label="Din lapp"] .slipno{
+        width: 22px;
+        height: 22px;
+        border-radius: 8px;
+        font-size: 11px;
+      }
+      .slipcard[aria-label="Din lapp"] .slipteams{
+        font-size: 11px;
+        max-width: 155px; /* sparar bredd åt 1/X/2 */
+      }
+      .slipcard[aria-label="Din lapp"] .umark{
+        width: 28px;
+        height: 24px;
+        border-radius: 10px;
+        font-size: 11px;
+      }
+      .slipcard[aria-label="Din lapp"] .slipfooter{
+        margin-top: 8px;
+        font-size: 11px;
+      }
+      .slipcard[aria-label="Din lapp"] .slipfooter .countpill{
+        padding: 5px 8px;
+        font-size: 11px;
       }
     }
 
     @media print{
       header, .slipcol{ display:none !important; }
-      body{ background:#fff; color:#000; transform:none !important; width:auto !important; }
+      body{ background:#fff; color:#000; }
       .card,.match,.hl{ box-shadow:none; border-color:#ddd; background:#fff; }
       .pill,.tag{ border-color:#ddd; background:#fff; color:#000; }
     }
@@ -813,7 +853,7 @@
   }
 
   // Din lapp: exakt ETT val per match (tom vid refresh, sparas inte)
-  const userPick = Array.from({length: 13}, () => ""); // "", "1", "X" eller "2"
+  const userPick = Array.from({length: 13}, () => "");
 
   function userSelectedCount(){
     return userPick.reduce((acc, v) => acc + (v ? 1 : 0), 0);
@@ -844,7 +884,7 @@
     const toggle = (el)=>{
       const i = parseInt(el.dataset.i, 10);
       const p = el.dataset.p;
-      userPick[i] = p;          // välj alltid senaste
+      userPick[i] = p;
       renderUserSlip();
       updateUserFooter();
     };
