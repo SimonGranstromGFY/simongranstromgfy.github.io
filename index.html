@@ -179,7 +179,7 @@
     }
     .muted{ color: var(--muted); }
 
-    /* ✅ NY: tydlig slogan */
+    /* ✅ Slogan */
     .slogan{
       margin-top: 12px;
       padding: 10px 12px;
@@ -289,6 +289,19 @@
     .matchbody p{ margin: 0; color: var(--text); }
 
     .small{ font-size: 12px; color: var(--muted); }
+
+    /* ✅ Legend för 1/X/2 */
+    .legend{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(26,41,64,.9);
+      background: rgba(7,11,18,.30);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .legend b{ color: var(--text); }
 
     .highlights{
       display:grid;
@@ -465,7 +478,7 @@
       text-align:center;
     }
 
-    /* MOBIL */
+    /* MOBIL (generellt) */
     @media (max-width: 520px){
       .container{ padding: 12px; }
       .topbar{ padding: 12px 12px; }
@@ -489,32 +502,15 @@
       .sliprow{ padding: 10px 10px; }
     }
 
-    /* ✅ EXTRA MOBIL-KOMPAKT: gör slipkort (framförallt "Din lapp") lite mindre */
+    /* ✅ Mobil: gör "Din lapp" kortare (~10%) och låt innehållet scrolla */
     @media (max-width: 520px){
-      .sliphead{ padding: 10px 10px 8px 10px; }
-      .slipbody{ padding: 10px 10px 12px 10px; }
-
-      .sliprow{ padding: 8px 8px; border-radius: 12px; gap: 8px; }
-
-      .slipno{
-        width: 24px;
-        height: 24px;
-        border-radius: 9px;
-        font-size: 11px;
+      .slipcard[aria-label="Din lapp"]{
+        max-height: 68vh;
       }
-
-      .slipteams{ font-size: 11px; }
-
-      .slipmarks{ gap: 4px; }
-
-      .umark, .mark{
-        width: 30px;
-        height: 26px;
-        border-radius: 11px;
-        font-size: 12px;
+      .slipcard[aria-label="Din lapp"] .slipbody{
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
       }
-
-      .slipfooter{ margin-top: 10px; gap: 6px; }
     }
 
     @media print{
@@ -599,7 +595,9 @@
       </footer>
     </div>
 
+    <!-- Högerkolumn -->
     <aside class="slipcol" aria-label="Systemkolumn">
+      <!-- Systemlapp (dina förval) -->
       <section class="slipcard" aria-label="Systemlapp">
         <div class="sliphead">
           <h3>
@@ -617,6 +615,7 @@
         </div>
       </section>
 
+      <!-- Din lapp -->
       <section class="slipcard" aria-label="Din lapp">
         <div class="sliphead">
           <h3>
@@ -698,19 +697,57 @@
 
   const data = {
     matches: [
-      { no: 1,  teams: "Derbyt borta", pick: "2", body: "Svinen med värvningar från världens alla hörn tar emot det långsiktiga och tråkiga, Långejanne på bänken har fått en hel försäsong och gör sitt första derby. Här har BoIS inga problem. Spik 2:a." },
-      { no: 2,  teams: "Derbyt hemma", pick: "X", body: "Med senaste derbyförlusten färskt i minnet för svinen och \"bragden på Landskrona IP\" 2025 kommer HeIF försvara med 11 man. Det, kombinerat med Streete som inte ens kan göra mål om hans liv hänger på det: 0–0. Alltså X." },
-      { no: 3,  teams: "Fridh – totala matcher", pick: "X", body: "Helt öppen! Historiken säger under 5,5 men med ett säsongskort i potten lever denna helt. Hade man kunnat helgradera skulle detta vara matchen att göra det på. Jag kör på X." },
-      { no: 4,  teams: "Hur många GFY Oddevold borta", pick: "X", body: "Lördag, vår i luften och behagligt avstånd. Här ska GFY givetvis vara 100%-iga. Därför blir det bortfall på 50%. Alltså X." },
-      { no: 5,  teams: "Asterhed får sparken", pick: "2", body: "Vem ska sparka honom? Vi står utan sportchef. 2." },
-      { no: 6,  teams: "Mölder får sparken", pick: "X", body: "Här är det mycket mer öppet. Smålänningarna har redan börjat gnissla tänder över rödskäggets defensiva och direkt tråkiga fotboll. Kombinationen av hård press att återgå till fotbollens finrum och ett urstarkt Superettan 2026 gör att Mölder får sparken – dock först efter sommaruppehållet. X." },
-      { no: 7,  teams: "BoIS placering i cupen", pick: "2", body: "Ingenting att hämta här. Slutar sist. 2:a." },
-      { no: 8,  teams: "BoIS placering vid sommaruppehållet", pick: "X", body: "BoIS placerar sig på den övre halvan för att sedan som vanligt falla som BB på hösten. Inför sommaruppehållet ligger BoIS dock 4–6, alltså X." },
-      { no: 9,  teams: "Vinner VS en fight", pick: "1", body: "Lappens mest solklara spik. Det gör de inte. 1." },
-      { no: 10, teams: "Bortamatch med högst GFY-närvaro (ej derby)", pick: "1", body: "Denna kommer vara uppe för diskussion. Är Koffe med om han står på fel läktare? Jag säger ja – och därför Öster borta. 1:a." },
-      { no: 11, teams: "Byter Bultras namn 2026", pick: "X", body: "Skribenten har försökt luska. Senaste budet är \"det är redan bestämt att Bultras byter namn\" – dock flaggar källan för att de kan köra no-name som räknas som att gruppen upplöses. Vidöppen match, men Bulten sitter på för hög häst för att släppa Bultras-namnet. De byter inte namn under säsongen. X." },
-      { no: 12, teams: "Avbrott i hemmaderbyt", pick: "X", body: "Kortsida mot kortsida och kombinationen av världens tråkigaste 0–0-match begränsar avbrotten. Dock bekräftat att det kommer finnas singel bakom västra. Det blir 2 avbrott. X." },
-      { no: 13, teams: "BoIS slutplacering 2026", pick: "2", body: "Kan inte se att vi kan utmana alls i årets upplaga av Superettan. BoIS slutar på nedre halvan. 2:a." }
+      { no: 1,  teams: "Derbyt borta", pick: "2",
+        legend: "1 / X / 2",
+        body: "Svinen med värvningar från världens alla hörn tar emot det långsiktiga och tråkiga, Långejanne på bänken har fått en hel försäsong och gör sitt första derby. Här har BoIS inga problem. Spik 2:a." },
+
+      { no: 2,  teams: "Derbyt hemma", pick: "X",
+        legend: "1 / X / 2",
+        body: "Med senaste derbyförlusten färskt i minnet för svinen och \"bragden på Landskrona IP\" 2025 kommer HeIF försvara med 11 man. Det, kombinerat med Streete som inte ens kan göra mål om hans liv hänger på det: 0–0. Alltså X." },
+
+      { no: 3,  teams: "Fridh – totala matcher", pick: "X",
+        legend: "1 = <5.5 matcher • X = 5.5–7.5 matcher • 2 = >7.5 matcher",
+        body: "Helt öppen! Historiken säger under 5,5 men med ett säsongskort i potten lever denna helt. Hade man kunnat helgradera skulle detta vara matchen att göra det på. Jag kör på X." },
+
+      { no: 4,  teams: "Hur många GFY Oddevold borta", pick: "X",
+        legend: "1 = < 3 personer • X = 3 personer • 2 = > 3 personer",
+        body: "Lördag, vår i luften och behagligt avstånd. Här ska GFY givetvis vara 100%-iga. Därför blir det bortfall på 50%. Alltså X." },
+
+      { no: 5,  teams: "Asterhed får sparken", pick: "2",
+        legend: "1 = Före sommaruppehållet • X = Efter sommaruppehållet • 2 = Tränar alla 30 seriematcher",
+        body: "Vem ska sparka honom? Vi står utan sportchef. 2." },
+
+      { no: 6,  teams: "Mölder får sparken", pick: "X",
+        legend: "1 = Före sommaruppehållet • X = Efter sommaruppehållet • 2 = Tränar alla 30 matcher",
+        body: "Här är det mycket mer öppet. Smålänningarna har redan börjat gnissla tänder över rödskäggets defensiva och direkt tråkiga fotboll. Kombinationen av hård press att återgå till fotbollens finrum och ett urstarkt Superettan 2026 gör att Mölder får sparken – dock först efter sommaruppehållet. X." },
+
+      { no: 7,  teams: "BoIS placering i cupen", pick: "2",
+        legend: "1 = 1 • X = 2 • 2 = 3–4",
+        body: "Ingenting att hämta här. Slutar sist. 2:a." },
+
+      { no: 8,  teams: "BoIS placering vid sommaruppehållet", pick: "X",
+        legend: "1 = 1–3 • X = 4–6 • 2 = 7–16",
+        body: "BoIS placerar sig på den övre halvan för att sedan som vanligt falla som BB på hösten. Inför sommaruppehållet ligger BoIS dock 4–6, alltså X." },
+
+      { no: 9,  teams: "Vinner VS en fight", pick: "1",
+        legend: "1 = Nej • X = Ja • 2 = Ingen uppstyrd under säsong",
+        body: "Lappens mest solklara spik. Det gör de inte. 1." },
+
+      { no: 10, teams: "Bortamatch med högst GFY-närvaro (ej derby)", pick: "1",
+        legend: "1 = Öster • X = Varberg • 2 = Annan",
+        body: "Denna kommer vara uppe för diskussion. Är Koffe med om han står på fel läktare? Jag säger ja – och därför Öster borta. 1:a." },
+
+      { no: 11, teams: "Byter Bultras namn 2026", pick: "X",
+        legend: "1 = Ja • X = Nej • 2 = Upplöses",
+        body: "Skribenten har försökt luska. Senaste budet är \"det är redan bestämt att Bultras byter namn\" – dock flaggar källan för att de kan köra no-name som räknas som att gruppen upplöses. Vidöppen match, men Bulten sitter på för hög häst för att släppa Bultras-namnet. De byter inte namn under säsongen. X." },
+
+      { no: 12, teams: "Avbrott i hemmaderbyt", pick: "X",
+        legend: "1 = <1.5 • X = 1.5–2.5 • 2 = >2.5",
+        body: "Kortsida mot kortsida och kombinationen av världens tråkigaste 0–0-match begränsar avbrotten. Dock bekräftat att det kommer finnas singel bakom västra. Det blir 2 avbrott. X." },
+
+      { no: 13, teams: "BoIS slutplacering 2026", pick: "2",
+        legend: "1 = 1–3 • X = 4–5 • 2 = 6–16",
+        body: "Kan inte se att vi kan utmana alls i årets upplaga av Superettan. BoIS slutar på nedre halvan. 2:a." }
     ]
   };
 
@@ -745,6 +782,7 @@
 
         <div class="matchbody">
           <p>${escapeHtml(m.body)}</p>
+          <div class="legend"><b>Alternativ:</b> ${escapeHtml(m.legend || "1 / X / 2")}</div>
         </div>
       `;
       wrap.appendChild(el);
@@ -784,7 +822,7 @@
     document.getElementById("systemTypeMini").textContent = label;
   }
 
-  // ✅ Din lapp: exakt ETT val per match (tom vid refresh, sparas inte)
+  // Din lapp: exakt ETT val per match (tom vid refresh, sparas inte)
   const userPick = Array.from({length: 13}, () => ""); // "", "1", "X" eller "2"
 
   function userSelectedCount(){
@@ -816,7 +854,7 @@
     const toggle = (el)=>{
       const i = parseInt(el.dataset.i, 10);
       const p = el.dataset.p;
-      userPick[i] = p;
+      userPick[i] = p; // välj alltid senaste
       renderUserSlip();
       updateUserFooter();
     };
