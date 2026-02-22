@@ -29,6 +29,10 @@
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
     *{ box-sizing: border-box; }
+
+    /* ✅ Zooma ut hela sidan 10% */
+    html{ zoom: .9; }
+
     body{
       margin:0;
       font-family: var(--font);
@@ -246,7 +250,6 @@
       flex-shrink: 0;
     }
 
-    /* ✅ Bara pillen för systemtecken (inga 1/X/2-boxar i analysen) */
     .pick{
       font-weight: 900;
       padding: 6px 10px;
@@ -321,7 +324,6 @@
       letter-spacing:.2px;
     }
 
-    /* ✅ Alternativ: flyttade upp + tydligare */
     .legend{
       margin-top: 10px;
       padding: 12px 12px;
@@ -358,7 +360,7 @@
     .hl.warn h4{ color: var(--warn); }
 
     /* Högerkolumn */
-    .slipcol{ position: sticky; top: 86px; display:flex; flex-direction:column; gap: 14px; }
+    .slipcol{ position: sticky; top: 86px; display:flex; flex-direction:column; gap: 12px; }
 
     .slipcard{
       border-radius: var(--radius);
@@ -370,14 +372,16 @@
       box-shadow: var(--shadow);
       overflow: hidden;
     }
+
+    /* ✅ Gör "Din lapp"-kortet lite mindre/kompakt */
     .sliphead{
-      padding: 14px 14px 12px 14px;
+      padding: 12px 12px 10px 12px; /* mindre */
       border-bottom: 1px solid rgba(26,41,64,.9);
       background: rgba(11,18,32,.62);
     }
     .sliphead h3{
       margin:0;
-      font-size: 14px;
+      font-size: 13px;              /* mindre */
       letter-spacing:.35px;
       display:flex;
       align-items:center;
@@ -385,49 +389,49 @@
       gap: 10px;
     }
     .sliphead .mini{
-      font-size: 12px;
+      font-size: 11px;              /* mindre */
       color: var(--muted);
       font-weight: 800;
-      padding: 4px 8px;
+      padding: 3px 7px;             /* mindre */
       border-radius: 999px;
       border: 1px solid rgba(26,41,64,.95);
       background: rgba(7,11,18,.45);
       white-space: nowrap;
     }
-    .slipbody{ padding: 12px 12px 14px 12px; }
-    .slipgrid{ display:grid; grid-template-columns: 1fr; gap: 8px; }
+    .slipbody{ padding: 10px 10px 12px 10px; } /* mindre */
+    .slipgrid{ display:grid; grid-template-columns: 1fr; gap: 6px; } /* tajtare */
 
     .sliprow{
       display:flex;
       align-items:center;
       justify-content: space-between;
-      gap: 10px;
-      padding: 8px 10px;
-      border-radius: 14px;
+      gap: 8px;
+      padding: 6px 8px;           /* mindre */
+      border-radius: 12px;        /* lite mindre */
       border: 1px solid rgba(26,41,64,.85);
       background: rgba(7,11,18,.28);
       overflow: hidden;
     }
     .sliprow .left{
-      display:flex; gap:10px; align-items:center;
+      display:flex; gap:8px; align-items:center; /* mindre */
       min-width:0;
       flex: 1 1 auto;
     }
     .slipno{
-      width: 26px;
-      height: 26px;
-      border-radius: 10px;
+      width: 24px;
+      height: 24px;
+      border-radius: 9px;
       display:grid;
       place-items:center;
       border: 1px solid rgba(26,41,64,.95);
       background: rgba(11,18,32,.75);
       color: var(--text);
       font-weight: 900;
-      font-size: 12px;
+      font-size: 11px; /* mindre */
       flex-shrink:0;
     }
     .slipteams{
-      font-size: 12px;
+      font-size: 11px; /* mindre */
       color: var(--muted);
       min-width: 0;
       flex: 1 1 auto;
@@ -437,22 +441,21 @@
       max-width: none;
     }
     .slipmarks{
-      display:flex; gap:6px; align-items:center;
+      display:flex; gap:5px; align-items:center;
       flex: 0 0 auto;
       flex-shrink:0;
     }
 
-    /* Din lapp: klickbara tecken */
     .umark{
-      width: 30px; height: 26px;
-      border-radius: 11px;
+      width: 28px; height: 24px;   /* mindre */
+      border-radius: 10px;
       display:grid;
       place-items:center;
       border: 1px solid rgba(26,41,64,.95);
       background: rgba(14,22,38,.70);
       color: rgba(231,237,247,.72);
       font-weight: 900;
-      font-size: 12px;
+      font-size: 11px;             /* mindre */
       cursor: pointer;
       user-select:none;
       -webkit-tap-highlight-color: transparent;
@@ -468,17 +471,17 @@
     }
 
     .slipfooter{
-      margin-top: 12px;
+      margin-top: 10px; /* mindre */
       display:flex;
       gap: 8px;
       flex-wrap: wrap;
       align-items:center;
       justify-content: space-between;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 11px; /* mindre */
     }
     .slipfooter .countpill{
-      padding: 6px 10px;
+      padding: 5px 9px; /* mindre */
       border-radius: 999px;
       border: 1px solid rgba(26,41,64,.95);
       background: rgba(7,11,18,.28);
@@ -495,6 +498,7 @@
 
     /* MOBIL */
     @media (max-width: 520px){
+      /* zoom på html kan vara ojämnt i vissa mobila browsers, men detta är ok */
       .container{ padding: 12px; }
       .topbar{ padding: 12px 12px; }
       .title{ font-size: 26px; }
@@ -507,14 +511,6 @@
         font-size: 14px;
       }
       .heroimg{ min-height: 200px; }
-
-      .umark{
-        width: 32px;
-        height: 28px;
-        border-radius: 12px;
-        font-size: 12px;
-      }
-      .sliprow{ padding: 10px 10px; }
     }
 
     @media print{
@@ -599,7 +595,7 @@
       </footer>
     </div>
 
-    <!-- Högerkolumn: ✅ endast Din lapp (systemlappen borttagen) -->
+    <!-- Högerkolumn: endast Din lapp -->
     <aside class="slipcol" aria-label="Systemkolumn">
       <section class="slipcard" aria-label="Din lapp">
         <div class="sliphead">
@@ -751,19 +747,16 @@
             </div>
           </div>
 
-          <!-- ✅ Bara tecken-pill kvar (1/X/2-rutan borttagen) -->
           <div class="mh-right">
             <div class="pick">${escapeHtml(setToPick(sysSet))}</div>
           </div>
         </div>
 
-        <!-- ✅ Alternativ flyttade upp: direkt under matchen (ovanför analys) -->
         <div class="matchbody">
           <div class="legend"><b>Alternativ:</b> ${escapeHtml(m.legend || "1 / X / 2")}</div>
 
           <p style="margin-top:12px;">${escapeHtml(m.body)}</p>
 
-          <!-- ✅ Ditt val (interaktivt) -->
           <div class="yourow" aria-label="Ditt val">
             <div class="label">Ditt val</div>
             <div class="youline">
@@ -778,7 +771,6 @@
       wrap.appendChild(el);
     });
 
-    // events för analys-knapparna (Ditt val)
     wrap.querySelectorAll(".ubtn").forEach(btn=>{
       const toggle = ()=>{
         const i = parseInt(btn.dataset.i, 10);
@@ -820,7 +812,7 @@
     const toggle = (el)=>{
       const i = parseInt(el.dataset.i, 10);
       const p = el.dataset.p;
-      setUserPick(i, p); // ✅ speglar upp till analysen också
+      setUserPick(i, p);
     };
 
     grid.querySelectorAll(".umark").forEach(el=>{
