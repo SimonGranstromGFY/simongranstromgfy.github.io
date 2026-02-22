@@ -5,12 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>GFY STRYKTIPS 2026</title>
 
-  <!--
-    Bild:
-    1) Spara den bifogade bilden som: hero.png
-    2) Lägg hero.png i samma mapp som denna HTML-fil
-  -->
-
   <style>
     :root{
       --bg:#070b12;
@@ -45,14 +39,15 @@
       line-height: 1.55;
     }
 
+    /* ✅ Gör header INTE sticky (så den inte följer med vid scroll) */
     header{
-      position: sticky;
-      top: 0;
+      position: static;
       z-index: 30;
       backdrop-filter: blur(12px);
       background: rgba(7,11,18,.68);
       border-bottom: 1px solid rgba(26,41,64,.9);
     }
+
     .topbar{
       max-width: var(--max);
       margin: 0 auto;
@@ -165,16 +160,6 @@
       border-bottom: 1px solid rgba(26,41,64,.9);
       position: relative;
     }
-    .heroimg:before{
-      content:"";
-      position:absolute;
-      inset: 0;
-      background:
-        radial-gradient(260px 260px at 20% 20%, rgba(255,255,255,.10), transparent 62%),
-        radial-gradient(300px 300px at 78% 40%, rgba(255,255,255,.06), transparent 65%);
-      opacity:.85;
-      pointer-events:none;
-    }
 
     .lead{ color: var(--text); font-size: 15px; }
     .muted{ color: var(--muted); }
@@ -249,7 +234,6 @@
       align-items:flex-end;
       flex-shrink: 0;
     }
-
     .pick{
       font-weight: 900;
       padding: 6px 10px;
@@ -264,7 +248,19 @@
     .matchbody{ padding: 14px 16px; }
     .matchbody p{ margin: 0; color: var(--text); }
 
-    /* ✅ Ditt val (interaktivt) */
+    .legend{
+      margin-top: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(96,165,250,.65);
+      background: rgba(96,165,250,.10);
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+    .legend b{ color: var(--text); font-weight: 900; }
+
     .yourow{
       margin-top: 12px;
       padding: 10px 12px;
@@ -324,19 +320,6 @@
       letter-spacing:.2px;
     }
 
-    .legend{
-      margin-top: 10px;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(96,165,250,.65);
-      background: rgba(96,165,250,.10);
-      color: var(--text);
-      font-size: 13px;
-      line-height: 1.45;
-      font-weight: 700;
-    }
-    .legend b{ color: var(--text); font-weight: 900; }
-
     .small{ font-size: 12px; color: var(--muted); }
 
     .highlights{
@@ -373,15 +356,14 @@
       overflow: hidden;
     }
 
-    /* ✅ Gör "Din lapp"-kortet lite mindre/kompakt */
     .sliphead{
-      padding: 12px 12px 10px 12px; /* mindre */
+      padding: 12px 12px 10px 12px;
       border-bottom: 1px solid rgba(26,41,64,.9);
       background: rgba(11,18,32,.62);
     }
     .sliphead h3{
       margin:0;
-      font-size: 13px;              /* mindre */
+      font-size: 13px;
       letter-spacing:.35px;
       display:flex;
       align-items:center;
@@ -389,31 +371,31 @@
       gap: 10px;
     }
     .sliphead .mini{
-      font-size: 11px;              /* mindre */
+      font-size: 11px;
       color: var(--muted);
       font-weight: 800;
-      padding: 3px 7px;             /* mindre */
+      padding: 3px 7px;
       border-radius: 999px;
       border: 1px solid rgba(26,41,64,.95);
       background: rgba(7,11,18,.45);
       white-space: nowrap;
     }
-    .slipbody{ padding: 10px 10px 12px 10px; } /* mindre */
-    .slipgrid{ display:grid; grid-template-columns: 1fr; gap: 6px; } /* tajtare */
+    .slipbody{ padding: 10px 10px 12px 10px; }
+    .slipgrid{ display:grid; grid-template-columns: 1fr; gap: 6px; }
 
     .sliprow{
       display:flex;
       align-items:center;
       justify-content: space-between;
       gap: 8px;
-      padding: 6px 8px;           /* mindre */
-      border-radius: 12px;        /* lite mindre */
+      padding: 6px 8px;
+      border-radius: 12px;
       border: 1px solid rgba(26,41,64,.85);
       background: rgba(7,11,18,.28);
       overflow: hidden;
     }
     .sliprow .left{
-      display:flex; gap:8px; align-items:center; /* mindre */
+      display:flex; gap:8px; align-items:center;
       min-width:0;
       flex: 1 1 auto;
     }
@@ -427,11 +409,11 @@
       background: rgba(11,18,32,.75);
       color: var(--text);
       font-weight: 900;
-      font-size: 11px; /* mindre */
+      font-size: 11px;
       flex-shrink:0;
     }
     .slipteams{
-      font-size: 11px; /* mindre */
+      font-size: 11px;
       color: var(--muted);
       min-width: 0;
       flex: 1 1 auto;
@@ -447,7 +429,7 @@
     }
 
     .umark{
-      width: 28px; height: 24px;   /* mindre */
+      width: 28px; height: 24px;
       border-radius: 10px;
       display:grid;
       place-items:center;
@@ -455,7 +437,7 @@
       background: rgba(14,22,38,.70);
       color: rgba(231,237,247,.72);
       font-weight: 900;
-      font-size: 11px;             /* mindre */
+      font-size: 11px;
       cursor: pointer;
       user-select:none;
       -webkit-tap-highlight-color: transparent;
@@ -471,17 +453,17 @@
     }
 
     .slipfooter{
-      margin-top: 10px; /* mindre */
+      margin-top: 10px;
       display:flex;
       gap: 8px;
       flex-wrap: wrap;
       align-items:center;
       justify-content: space-between;
       color: var(--muted);
-      font-size: 11px; /* mindre */
+      font-size: 11px;
     }
     .slipfooter .countpill{
-      padding: 5px 9px; /* mindre */
+      padding: 5px 9px;
       border-radius: 999px;
       border: 1px solid rgba(26,41,64,.95);
       background: rgba(7,11,18,.28);
@@ -494,23 +476,6 @@
       color: var(--muted);
       font-size: 12px;
       text-align:center;
-    }
-
-    /* MOBIL */
-    @media (max-width: 520px){
-      /* zoom på html kan vara ojämnt i vissa mobila browsers, men detta är ok */
-      .container{ padding: 12px; }
-      .topbar{ padding: 12px 12px; }
-      .title{ font-size: 26px; }
-      .meta{ gap: 8px 10px; }
-
-      .ubtn{
-        width: 48px;
-        height: 40px;
-        border-radius: 14px;
-        font-size: 14px;
-      }
-      .heroimg{ min-height: 200px; }
     }
 
     @media print{
@@ -595,7 +560,6 @@
       </footer>
     </div>
 
-    <!-- Högerkolumn: endast Din lapp -->
     <aside class="slipcol" aria-label="Systemkolumn">
       <section class="slipcard" aria-label="Din lapp">
         <div class="sliphead">
@@ -675,11 +639,11 @@
         body: "Lördag, vår i luften och behagligt avstånd. Här ska GFY givetvis vara 100%-iga. Därför blir det bortfall på 50%. Alltså X." },
 
       { no: 5,  teams: "Asterhed får sparken", pick: "2",
-        legend: "1 = Före/under sommaruppehållet • X = Efter sommaruppehållet • 2 = Tränar alla 30 seriematcher",
+        legend: "1 = Före sommaruppehållet • X = Efter sommaruppehållet • 2 = Tränar alla 30 seriematcher",
         body: "Vem ska sparka honom? Vi står utan sportchef. 2." },
 
       { no: 6,  teams: "Mölder får sparken", pick: "X",
-        legend: "1 = Före/under sommaruppehållet • X = Efter sommaruppehållet • 2 = Tränar alla 30 matcher",
+        legend: "1 = Före sommaruppehållet • X = Efter sommaruppehållet • 2 = Tränar alla 30 matcher",
         body: "Här är det mycket mer öppet. Smålänningarna har redan börjat gnissla tänder över rödskäggets defensiva och direkt tråkiga fotboll. Kombinationen av hård press att återgå till fotbollens finrum och ett urstarkt Superettan 2026 gör att Mölder får sparken – dock först efter sommaruppehållet. X." },
 
       { no: 7,  teams: "BoIS placering i cupen", pick: "2",
@@ -712,8 +676,7 @@
     ]
   };
 
-  // ✅ Din lapp: exakt ETT val per match (sparas inte)
-  const userPick = Array.from({length: 13}, () => ""); // "", "1", "X" eller "2"
+  const userPick = Array.from({length: 13}, () => "");
 
   function setUserPick(i, p){
     userPick[i] = p;
@@ -746,7 +709,6 @@
               <span class="tag">Tecken: <b style="font-weight:900;color:var(--text)">${escapeHtml(setToPick(sysSet))}</b></span>
             </div>
           </div>
-
           <div class="mh-right">
             <div class="pick">${escapeHtml(setToPick(sysSet))}</div>
           </div>
