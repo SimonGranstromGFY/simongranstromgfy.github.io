@@ -246,7 +246,7 @@
       flex-shrink: 0;
     }
 
-    /* Systemets indikator (vi tar bort 1/X/2-boxarna, men behåller pillen med tecken) */
+    /* ✅ Bara pillen för systemtecken (inga 1/X/2-boxar i analysen) */
     .pick{
       font-weight: 900;
       padding: 6px 10px;
@@ -321,7 +321,7 @@
       letter-spacing:.2px;
     }
 
-    /* Alternativ per match (flyttas upp + görs tydligare) */
+    /* ✅ Alternativ: flyttade upp + tydligare */
     .legend{
       margin-top: 10px;
       padding: 12px 12px;
@@ -441,24 +441,8 @@
       flex: 0 0 auto;
       flex-shrink:0;
     }
-    .mark{
-      width: 30px; height: 26px;
-      border-radius: 11px;
-      display:grid;
-      place-items:center;
-      border: 1px solid rgba(26,41,64,.95);
-      background: rgba(14,22,38,.70);
-      color: rgba(231,237,247,.55);
-      font-weight: 900;
-      font-size: 12px;
-    }
-    .mark.on{
-      border-color: rgba(34,197,94,.65);
-      background: rgba(34,197,94,.16);
-      color: var(--text);
-    }
 
-    /* Din lapp (klickbar, ENDAST ett val per match) */
+    /* Din lapp: klickbara tecken */
     .umark{
       width: 30px; height: 26px;
       border-radius: 11px;
@@ -524,7 +508,7 @@
       }
       .heroimg{ min-height: 200px; }
 
-      .mark, .umark{
+      .umark{
         width: 32px;
         height: 28px;
         border-radius: 12px;
@@ -615,27 +599,8 @@
       </footer>
     </div>
 
-    <!-- Högerkolumn -->
+    <!-- Högerkolumn: ✅ endast Din lapp (systemlappen borttagen) -->
     <aside class="slipcol" aria-label="Systemkolumn">
-      <!-- Systemlapp -->
-      <section class="slipcard" aria-label="Systemlapp">
-        <div class="sliphead">
-          <h3>
-            Systemlapp (1–13)
-            <span class="mini" id="systemTypeMini">—</span>
-          </h3>
-          <div class="small" style="margin-top:6px;">Sammanställning av val.</div>
-        </div>
-        <div class="slipbody">
-          <div class="slipgrid" id="slipGrid"></div>
-          <div class="slipfooter">
-            <span class="countpill" id="rowsCount">Rader: —</span>
-            <span class="muted" id="mixHint">Spik / Halv / Hel</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Din lapp -->
       <section class="slipcard" aria-label="Din lapp">
         <div class="sliphead">
           <h3>
@@ -685,26 +650,6 @@
     if(n === 2) return { key:"halv", label:"Halv" };
     if(n === 3) return { key:"hel",  label:"Hel" };
     return { key:"", label:"Ovalt" };
-  }
-  function rowsCountFromMatches(matches){
-    let rows = 1;
-    for(const m of matches){
-      const n = Math.max(1, pickToSet(m.pick).size);
-      rows *= n;
-      if(rows > 999999) return ">999999";
-    }
-    return String(rows);
-  }
-  function systemMix(matches){
-    let spik=0, halv=0, hel=0, ov=0;
-    for(const m of matches){
-      const c = classify(pickToSet(m.pick)).key;
-      if(c==="spik") spik++;
-      else if(c==="halv") halv++;
-      else if(c==="hel") hel++;
-      else ov++;
-    }
-    return { spik, halv, hel, ov };
   }
   function escapeHtml(str){
     return String(str)
@@ -806,7 +751,7 @@
             </div>
           </div>
 
-          <!-- ✅ BARA tecken-pill kvar (1/X/2-boxarna borttagna) -->
+          <!-- ✅ Bara tecken-pill kvar (1/X/2-rutan borttagen) -->
           <div class="mh-right">
             <div class="pick">${escapeHtml(setToPick(sysSet))}</div>
           </div>
@@ -848,39 +793,6 @@
         }
       });
     });
-  }
-
-  function renderSlip(){
-    const grid = document.getElementById("slipGrid");
-    grid.innerHTML = "";
-
-    data.matches.forEach(m=>{
-      const set = pickToSet(m.pick);
-      const row = document.createElement("div");
-      row.className = "sliprow";
-      row.innerHTML = `
-        <div class="left">
-          <div class="slipno">${m.no}</div>
-          <div class="slipteams" title="${escapeHtml(m.teams)}">${escapeHtml(m.teams)}</div>
-        </div>
-        <div class="slipmarks" aria-label="Valda tecken">
-          <div class="mark ${set.has("1") ? "on":""}">1</div>
-          <div class="mark ${set.has("X") ? "on":""}">X</div>
-          <div class="mark ${set.has("2") ? "on":""}">2</div>
-        </div>
-      `;
-      grid.appendChild(row);
-    });
-
-    const mix = systemMix(data.matches);
-    document.getElementById("rowsCount").textContent = `Rader: ${rowsCountFromMatches(data.matches)}`;
-    document.getElementById("mixHint").textContent = `Spik ${mix.spik} • Halv ${mix.halv} • Hel ${mix.hel}`;
-
-    let label = "Mix";
-    if(mix.hel === 0 && mix.halv === 0) label = "Rak (13 spikar)";
-    else if(mix.hel === 0 && mix.halv > 0) label = "Halvgard. system";
-    else if(mix.hel > 0) label = "Helgard. med i system";
-    document.getElementById("systemTypeMini").textContent = label;
   }
 
   function renderUserSlip(){
@@ -934,7 +846,6 @@
   }
 
   renderMatches();
-  renderSlip();
   renderUserSlip();
   updateUserFooter();
 })();
